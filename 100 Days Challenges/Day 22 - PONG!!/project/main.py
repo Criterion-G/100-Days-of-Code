@@ -52,18 +52,20 @@ while game_is_on:
     if ball.ycor() >= WALL or ball.ycor() <= -WALL:
         ball.wall_bounce()
     # collision with either paddle, whichever side it's on
+    # (only while the ball is heading towards that paddle, so it can't bounce twice)
     for paddle in (paddle_1, paddle_2):
-        if abs(ball.xcor()) >= PADDLE_POSITION - 10 and ball.distance(paddle) <= 50:
+        heading_to_paddle = paddle.xcor() * ball.x_move > 0
+        if heading_to_paddle and abs(ball.xcor()) >= PADDLE_POSITION - 10 and ball.distance(paddle) <= 50:
             ball.paddle_bounce()
 
     # scoring: a ball past one goal is a point for the player on the other side
-    if ball.xcor() > GOAL:
+    if ball.xcor() > GOAL and ball.x_move > 0:
         scoreboard.increase_score('left')
-        ball.goto(0,0)
+        ball.reset_ball()
         time.sleep(0.5)
-    if ball.xcor() < -GOAL:
+    if ball.xcor() < -GOAL and ball.x_move < 0:
         scoreboard.increase_score('right')
-        ball.goto(0,0)
+        ball.reset_ball()
         time.sleep(0.5)
 
 screen.exitonclick()

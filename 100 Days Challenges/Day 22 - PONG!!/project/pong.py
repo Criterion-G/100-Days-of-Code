@@ -5,6 +5,7 @@ import random as rng
 # Our constants
 PADDLE_SPEED = 50
 BALL_SPEED = 10
+SPEED_INCREASE = 10
 WALL = 280
 
 # Our classes
@@ -47,8 +48,9 @@ class Ball(t.Turtle):
         self.shapesize(stretch_len= 1, stretch_wid= 1)
         self.color('white')
         self.speed('fastest')
-        self.x_move = BALL_SPEED
-        self.y_move = BALL_SPEED
+        self.ball_speed = BALL_SPEED
+        self.x_move = self.ball_speed
+        self.y_move = self.ball_speed
 
     def move(self):
         new_x = self.xcor() + self.x_move
@@ -59,7 +61,16 @@ class Ball(t.Turtle):
         self.y_move *= -1
 
     def paddle_bounce(self):
-        self.x_move *= -1
+        self.ball_speed += SPEED_INCREASE
+        # flip the x direction, keep the y direction, both at the new speed
+        self.x_move = -self.ball_speed if self.x_move > 0 else self.ball_speed
+        self.y_move = self.ball_speed if self.y_move > 0 else -self.ball_speed
+
+    def reset_ball(self):
+        self.goto(0, 0)
+        self.ball_speed = BALL_SPEED
+        self.x_move = self.ball_speed if self.x_move > 0 else -self.ball_speed
+        self.y_move = self.ball_speed if self.y_move > 0 else -self.ball_speed
 
 class ScoreBoard(t.Turtle):
     def __init__(self, p1_side):
