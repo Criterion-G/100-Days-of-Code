@@ -1,0 +1,12 @@
+colorgram.py==1.2.0
+customtkinter==6.0.0
+darkdetect==0.8.0
+numpy==2.5.4
+packaging==26.3
+pandas==3.0.6
+pillow==13.0.0
+prettytable==3.18.0
+python-dateutil==2.9.0.post0
+six==1.17.0
+tzdata==2026.5
+wcwidth==0.9.2
