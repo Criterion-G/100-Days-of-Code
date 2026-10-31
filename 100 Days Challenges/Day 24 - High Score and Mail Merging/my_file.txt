@@ -1,0 +1,1 @@
+hi. this is me testing opening, writing and closing files using python.
