@@ -31,6 +31,10 @@ while True:
     if answer_state is None:
         break
 
+    if scoreboard.score >= 50:
+        print('ggs, you win!')
+        break
+
     answer_state = answer_state.title()
 
     if answer_state == 'Exit':
